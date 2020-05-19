@@ -25,7 +25,7 @@ class Genre
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Books::class, mappedBy="genres")
+     * @ORM\ManyToMany(targetEntity=Book::class, mappedBy="genres")
      */
     private $books;
 
@@ -33,6 +33,8 @@ class Genre
     {
         $this->books = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -52,14 +54,14 @@ class Genre
     }
 
     /**
-     * @return Collection|Books[]
+     * @return Collection|Book[]
      */
     public function getBooks(): Collection
     {
         return $this->books;
     }
 
-    public function addBook(Books $book): self
+    public function addBook(Book $book): self
     {
         if (!$this->books->contains($book)) {
             $this->books[] = $book;
@@ -69,7 +71,7 @@ class Genre
         return $this;
     }
 
-    public function removeBook(Books $book): self
+    public function removeBook(Book $book): self
     {
         if ($this->books->contains($book)) {
             $this->books->removeElement($book);
