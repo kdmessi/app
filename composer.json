@@ -29,6 +29,10 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "escapestudios/symfony2-coding-standard": "^3.11",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpmd/phpmd": "^2.8",
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -60,6 +64,10 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "fix": [
+            "./vendor/bin/php-cs-fixer fix -v --rules='{\"no_superfluous_phpdoc_tags\":false}' ./src",
+            "./vendor/bin/phpcbf --standard=/Users/krzysztofdarmon/PhpstormProjects/untitled2/app/vendor/escapestudios/symfony2-coding-standard/Symfony ./src/"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
