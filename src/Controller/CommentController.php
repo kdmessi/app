@@ -6,6 +6,7 @@ use App\Entity\Book;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +20,16 @@ class CommentController extends AbstractController
     /**
      * @Route("/", name="comment_index", methods={"GET"})
      */
-    public function index(CommentRepository $commentRepository): Response
+    public function index(CommentRepository $commentRepository, PaginatorInterface $paginator,Request $request): Response
     {
         return $this->render('comment/index.html.twig', [
-            'comments' => $commentRepository->findAll(),
+
+            'comments' => $paginator->paginate($commentRepository->findAll(),$request->get('page',1),10)
         ]);
     }
 
     /**
-     * @Route("/new/{id}", name="comments_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="comment_new", methods={"GET","POST"})
      */
     public function new(Request $request, Book $book): Response
     {
@@ -37,7 +39,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setDateAdded(new \DateTime("now"));
+            $comment->setCreatedAt(new \DateTime("now"));
             $comment->setBook($book);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);

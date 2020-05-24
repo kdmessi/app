@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use App\Repository\CommentRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +20,12 @@ class BookController extends AbstractController
     /**
      * @Route("/", name="book_index", methods={"GET"})
      */
-    public function index(BookRepository $bookRepository): Response
+    public function index(BookRepository $bookRepository, PaginatorInterface $paginator,Request $request): Response
     {
+
+
         return $this->render('book/index.html.twig', [
-            'books' => $bookRepository->findAll(),
+            'books' => $paginator->paginate($bookRepository->findAll(),$request->get('page',1),10)
         ]);
     }
 
@@ -51,10 +55,15 @@ class BookController extends AbstractController
     /**
      * @Route("/{id}", name="book_show", methods={"GET"})
      */
-    public function show(Book $book): Response
+    public function show(Book $book, Request $request,CommentRepository $commentRepository,PaginatorInterface $paginator): Response
     {
         return $this->render('book/show.html.twig', [
             'book' => $book,
+            'comments' => $paginator->paginate(
+                $commentRepository->findBy(['bookId'=>$book->getId()]),
+                $request->get('page',1)
+                ,10
+            )
         ]);
     }
 

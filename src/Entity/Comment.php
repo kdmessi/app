@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -16,6 +17,11 @@ class Comment
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $bookId;
 
     /**
      * @ORM\Column(type="datetime")
@@ -106,4 +112,16 @@ class Comment
 
         return $this;
     }
+    public function getBookId(): int
+    {
+        return $this->bookId;
+    }
+
+    public function setBookId(int $bookId): self
+    {
+        $this->bookId = $bookId;
+
+        return $this;
+    }
 }
+
