@@ -22,10 +22,12 @@ class BookController extends AbstractController
      */
     public function index(BookRepository $bookRepository, PaginatorInterface $paginator,Request $request): Response
     {
-
-
         return $this->render('book/index.html.twig', [
-            'books' => $paginator->paginate($bookRepository->findAll(),$request->get('page',1),10)
+            'books' => $paginator->paginate(
+                $bookRepository->queryByGenreLike($request->get('genre')),
+                $request->get('page',1),
+                10
+            )
         ]);
     }
 
@@ -39,6 +41,7 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $book->setCreatedAt(new \DateTime("now"));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
@@ -76,7 +79,10 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($book);
+            $entityManager->flush();
+
 
             return $this->redirectToRoute('book_index');
         }

@@ -16,7 +16,6 @@ class BookType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('createdAt')
             ->add('description')
             ->add('genres',EntityType::class,['class'=>Genre::class, 'choice_label' => 'name','multiple'=>true])
             ->add('author',EntityType::class,['class'=>Author::class,'choice_label'=>'surname'])

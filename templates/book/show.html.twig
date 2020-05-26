@@ -23,6 +23,16 @@
                 <th>Description</th>
                 <td>{{ book.description }}</td>
             </tr>
+            <tr>
+                <th>Genre</th>
+                <td>
+
+                    {% for genre in book.genres %}
+                        {{ genre.name }}
+                    {% endfor%}
+
+                </td>
+            </tr>
         </tbody>
     </table>
 

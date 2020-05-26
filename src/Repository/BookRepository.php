@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\Genre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,22 +22,22 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function queryByGenreLike(?string $genre): Query
     {
+        if (null === $genre)
+        {
+            return $this->createQueryBuilder('b')
+                ->getQuery();
+        }
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('b.genres','g')
+            ->andWhere('g.name LIKE :val')
+            ->setParameter('val', '%' . $genre . '%')
             ->getQuery()
-            ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Book

@@ -4,7 +4,19 @@
 
 {% block body %}
     <h1>Book index</h1>
-
+    <form class="card card-sm" method="get">
+        <div class="card-body row no-gutters align-items-center">
+            <div class="col-auto">
+                <i class="fas fa-search h4 text-body"></i>
+            </div>
+            <div class="col">
+                <input class="form-control form-control-lg form-control-borderless" type="search" name="genre">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-lg btn-success" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
     <div class="nav text-center">
         {{ knp_pagination_render(books) }}
     </div>
