@@ -24,6 +24,11 @@
                 <td>{{ book.description }}</td>
             </tr>
             <tr>
+                <th>Author</th>
+                <td>{{ book.author.name }} {{ book.author.surname }}</td>
+            </tr>
+            <tr>
+
                 <th>Genre</th>
                 <td>
 
@@ -45,28 +50,6 @@
     <a href="{{ path('comment_new', {'id': book.id}) }}">create comment</a>
 
 
-    <div class="comment">
-        <div class="nav text-center">
-            {{ knp_pagination_render(comments) }}
-        </div>
-        {% for comment in comments %}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Nick: {{ comment.nick }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Email:  {{ comment.email }}</h6>
-                    <p class="card-text">Comment: {{ comment.content }}</p>
-                    <a href="{{ path('comment_edit', {'id': comment.id}) }}" class="card-link">Edit</a>
-                    {{ include('comment/_delete_form.html.twig') }}
-                </div>
-            </div>
-        {% else %}
-            <div>
-                no records found
-            </div>
-        {% endfor %}
-        <div class="nav text-center">
-            {{ knp_pagination_render(comments) }}
-        </div>
-    </div>
+    {{  include('book/comment_index.html.twig') }}
 
 {% endblock %}
