@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,16 +21,15 @@ class CommentController extends AbstractController
     /**
      * @Route("/", name="comment_index", methods={"GET"})
      */
-    public function index(CommentRepository $commentRepository, PaginatorInterface $paginator,Request $request): Response
+    public function index(CommentRepository $commentRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('comment/index.html.twig', [
-
-            'comments' => $paginator->paginate($commentRepository->findAll(),$request->get('page',1),10)
+            'comments' => $paginator->paginate($commentRepository->findAll(), $request->get('page', 1), 10),
         ]);
     }
 
     /**
-     * @Route("/new/{id}", name="comment_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="comment_new", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
      */
     public function new(Request $request, Book $book): Response
     {
@@ -39,7 +39,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCreatedAt(new \DateTime("now"));
+            $comment->setCreatedAt(new \DateTime('now'));
             $comment->setBook($book);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
@@ -53,8 +53,9 @@ class CommentController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     /**
-     * @Route("/{id}", name="comment_show", methods={"GET"})
+     * @Route("/{id}", name="comment_show", methods={"GET"},requirements={"id": "[1-9]\d*"})
      */
     public function show(Comment $comment): Response
     {
@@ -64,7 +65,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
      */
     public function edit(Request $request, Comment $comment): Response
     {
@@ -84,16 +85,27 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="comment_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      */
     public function delete(Request $request, Comment $comment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+        $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
+            return $this->redirectToRoute('book_show',['id'=>$comment->getBookId()]);
         }
 
-        return $this->redirectToRoute('comment_index');
+        return $this->render('comment/delete.html.twig', [
+            'comment' => $comment,
+            'form' => $form->createView(),
+        ]);
     }
 }
