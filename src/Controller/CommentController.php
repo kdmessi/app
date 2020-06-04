@@ -44,8 +44,7 @@ class CommentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
-
-            return $this->redirectToRoute('comment_index');
+            return $this->redirectToRoute('book_show',['id'=>$book->getId()]);
         }
 
         return $this->render('comment/new.html.twig', [

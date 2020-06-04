@@ -51,6 +51,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if null != app.user %}
     <a href="{{ path('book_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
