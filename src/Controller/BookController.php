@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Form\SearchType;
 use App\Repository\BookRepository;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -12,6 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Validation;
+
 
 /**
  * @Route("/book")
@@ -23,6 +28,23 @@ class BookController extends AbstractController
      */
     public function index(BookRepository $bookRepository, PaginatorInterface $paginator,Request $request): Response
     {
+        $term = $request->get('genre');
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($term, [
+            new Length(['max' => 10]),
+        ]);
+
+        if (0 !== count($violations)) {
+            $this->addFlash('danger','invalid data');
+            return $this->render('book/index.html.twig', [
+                'books' => $paginator->paginate(
+                    $bookRepository->queryByGenreLike(null),
+                    $request->get('page',1),
+                    10
+                )
+            ]);
+        }
+
         return $this->render('book/index.html.twig', [
             'books' => $paginator->paginate(
                 $bookRepository->queryByGenreLike($request->get('genre')),
