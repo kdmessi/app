@@ -6,6 +6,7 @@ use App\Entity\Genre;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,16 +80,28 @@ class GenreController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="genre_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="genre_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      */
     public function delete(Request $request, Genre $genre): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$genre->getId(), $request->request->get('_token'))) {
+
+        $form = $this->createForm(FormType::class, $genre, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($genre);
             $entityManager->flush();
+            return $this->redirectToRoute('genre_index');
         }
 
-        return $this->redirectToRoute('genre_index');
+        return $this->render('genre/delete.html.twig', [
+            'genre' => $genre,
+            'form' => $form->createView(),
+        ]);
     }
 }

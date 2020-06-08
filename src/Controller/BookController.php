@@ -8,6 +8,7 @@ use App\Repository\BookRepository;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -94,16 +95,29 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="book_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="book_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      */
     public function delete(Request $request, Book $book): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
+
+        $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($book);
             $entityManager->flush();
+            return $this->redirectToRoute('book_index');
         }
 
-        return $this->redirectToRoute('book_index');
+        return $this->render('book/delete.html.twig', [
+            'book' => $book,
+            'form' => $form->createView(),
+        ]);
     }
 }
+

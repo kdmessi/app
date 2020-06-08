@@ -26,5 +26,5 @@
 
     <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
 
-    {{ include('author/_delete_form.html.twig') }}
+    <a href="{{ path('author_delete',{'id': author.id}) }}">{{"delete"|trans}}</a>
 {% endblock %}

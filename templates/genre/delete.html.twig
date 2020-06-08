@@ -1,0 +1,11 @@
+    {% include 'default/_form.html.twig' with {
+        page_title: 'genre_delete',
+        page_title_param: {'%id%': genre.id},
+        attr: {
+            method: 'DELETE',
+            action: url('genre_delete', {'id': genre.id}),
+        },
+        form: form,
+        submit_label: 'action_delete'|trans,
+        back_to_list_path: 'genre_index',
+    } %}

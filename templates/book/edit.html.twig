@@ -7,7 +7,7 @@
 
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('book_index') }}">back to list</a>
-
-    {{ include('book/_delete_form.html.twig') }}
+    <a href="{{ path('book_index') }}">{{"back_to_list"|trans}}</a>
+    
+    <a href="{{ path('book_delete',{'id': book.id}) }}">{{"delete"|trans}}</a>
 {% endblock %}
