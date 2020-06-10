@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -25,21 +26,30 @@ class Comment
 
     /**
      * @ORM\Column(type="datetime")
+     *  @Assert\DateTime
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z\p{L}\s]+$/iu",
+     * )
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     *
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z\p{L}\s]+$/iu",
+     * )
      */
     private $nick;
 

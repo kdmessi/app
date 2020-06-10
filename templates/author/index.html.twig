@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author index{% endblock %}
+{% block title %}{{  'Author_index'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Author index</h1>
+    <h1>{{  'Author_index'|trans}}</h1>
 
     <table class="table">
         <thead>
@@ -27,11 +27,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">{{'no_records_found'|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('author_new') }}">Create new</a>
+    <a href="{{ path('author_new') }}">{{'Create_new'|trans}}</a>
 {% endblock %}

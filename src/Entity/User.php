@@ -8,6 +8,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -80,13 +81,15 @@ class User implements UserInterface
      *
      * @var string
      *
+     * @SecurityAssert\UserPassword(
+     *  message = "Wrong value for your current password"
+     * )
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
      * Getter for the Id.
-     *
      * @return int|null Result
      */
     public function getId(): ?int
