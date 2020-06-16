@@ -42,10 +42,11 @@
     </table>
 
     <a href="{{ path('book_index') }}">back to list</a>
-
+    {% if app.user %}
     <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
 
     <a href="{{ path('book_delete',{'id': book.id}) }}">{{"delete"|trans}}</a>
+    {% endif %}
 
     <a href="{{ path('comment_new', {'id': book.id}) }}">create comment</a>
 

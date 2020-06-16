@@ -21,6 +21,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('comment_index') }}">{{"Comments"|trans}}</a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin') }}">{{"Admin_settings"|trans}}</a>
+            </li>
             {% endif %}
 
             {% if null == app.user %}

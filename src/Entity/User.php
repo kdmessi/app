@@ -6,23 +6,18 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(
- *     name="users",
- *     uniqueConstraints={
- *          @ORM\UniqueConstraint(
- *              name="email_idx",
- *              columns={"email"},
- *          )
- *     }
+ *     name="users"
+ *
  * )
  *
- * @UniqueEntity(fields={"email"})
+ *
  */
 class User implements UserInterface
 {
@@ -66,6 +61,8 @@ class User implements UserInterface
      *     length=180,
      *     unique=true,
      * )
+     * @Assert\Email()
+     *
      */
     private $email;
 
@@ -81,12 +78,18 @@ class User implements UserInterface
      *
      * @var string
      *
-     * @SecurityAssert\UserPassword(
-     *  message = "Wrong value for your current password"
-     * )
+     *
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var string
+     * @SecurityAssert\UserPassword(
+     *  message = "Wrong value for your current password"
+     * )
+     */
+    private $confirm;
 
     /**
      * Getter for the Id.
@@ -192,5 +195,21 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirm():string
+    {
+        return $this->confirm ?? '';
+    }
+
+    /**
+     * @return string
+     */
+    public function setConfirm(string $confirm ):void
+    {
+       $this->confirm=$confirm;
     }
 }

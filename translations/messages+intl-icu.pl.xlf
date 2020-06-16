@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="p.4pRmM" resname="You can not remove author with books">
+        <source>You can not remove author with books</source>
+        <target>__You can not remove author with books</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Usuń</target>
+      </trans-unit>
+      <trans-unit id="DTHe6IT" resname="action_delete">
+        <source>action_delete</source>
+        <target>__action_delete</target>
+      </trans-unit>
+      <trans-unit id="lMTKD8f" resname="Edit_Author">
+        <source>Edit_Author</source>
+        <target>__Edit_Author</target>
+      </trans-unit>
+      <trans-unit id="6tlp1bV" resname="back_to_list">
+        <source>back_to_list</source>
+        <target>__back_to_list</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>__delete</target>
+      </trans-unit>
+      <trans-unit id="JvLhJqQ" resname="Author_index">
+        <source>Author_index</source>
+        <target>__Author_index</target>
+      </trans-unit>
+      <trans-unit id="oQmcLRD" resname="no_records_found">
+        <source>no_records_found</source>
+        <target>__no_records_found</target>
+      </trans-unit>
+      <trans-unit id="LMeH1qf" resname="Create_new">
+        <source>Create_new</source>
+        <target>__Create_new</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>__Save</target>
+      </trans-unit>
+      <trans-unit id="rOBOHiy" resname="action_save">
+        <source>action_save</source>
+        <target>__action_save</target>
+      </trans-unit>
+      <trans-unit id="XL6Mb3T" resname="action_back_to_list">
+        <source>action_back_to_list</source>
+        <target>__action_back_to_list</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>__Home</target>
+      </trans-unit>
+      <trans-unit id="NWGr.oB" resname="Genres">
+        <source>Genres</source>
+        <target>__Genres</target>
+      </trans-unit>
+      <trans-unit id="LADJqqc" resname="Authors">
+        <source>Authors</source>
+        <target>__Authors</target>
+      </trans-unit>
+      <trans-unit id="NV958p1" resname="Comments">
+        <source>Comments</source>
+        <target>__Comments</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>__Login</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>__Logout</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
