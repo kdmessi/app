@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Genre;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +20,15 @@ class GenreController extends AbstractController
     /**
      * @Route("/", name="genre_index", methods={"GET"})
      */
-    public function index(GenreRepository $genreRepository): Response
+    public function index(GenreRepository $genreRepository,PaginatorInterface $paginator,Request $request): Response
     {
         return $this->render('genre/index.html.twig', [
-            'genres' => $genreRepository->findAll(),
+            'genres' => $paginator->paginate(
+                $genreRepository->findAll(),
+                $request->get('page',1),
+                10
+            ),
+
         ]);
     }
 
@@ -39,6 +45,8 @@ class GenreController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($genre);
             $entityManager->flush();
+
+            $this->addFlash('success', 'genre_created');
 
             return $this->redirectToRoute('genre_index');
         }
@@ -70,6 +78,8 @@ class GenreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'updated_successfully');
+
             return $this->redirectToRoute('genre_index');
         }
 
@@ -96,6 +106,9 @@ class GenreController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($genre);
             $entityManager->flush();
+
+            $this->addFlash('success', 'deleted_successfully');
+
             return $this->redirectToRoute('genre_index');
         }
 

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Book{% endblock %}
+{% block title %}{{"Edit Book"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Edit Book</h1>
+    <h1>{{"Edit Book"|trans}}</h1>
 
     {{ include('book/_form.html.twig', {'button_label': 'Update'}) }}
 

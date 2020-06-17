@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
-use App\Form\SearchType;
 use App\Repository\BookRepository;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -14,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validation;
-
 
 /**
  * @Route("/book")
@@ -26,7 +23,7 @@ class BookController extends AbstractController
     /**
      * @Route("/", name="book_index", methods={"GET"})
      */
-    public function index(BookRepository $bookRepository, PaginatorInterface $paginator,Request $request): Response
+    public function index(BookRepository $bookRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $term = $request->get('genre');
         $validator = Validation::createValidator();
@@ -35,22 +32,23 @@ class BookController extends AbstractController
         ]);
 
         if (0 !== count($violations)) {
-            $this->addFlash('danger','invalid data');
+            $this->addFlash('danger', 'invalid data');
+
             return $this->render('book/index.html.twig', [
                 'books' => $paginator->paginate(
                     $bookRepository->queryByGenreLike(null),
-                    $request->get('page',1),
+                    $request->get('page', 1),
                     10
-                )
+                ),
             ]);
         }
 
         return $this->render('book/index.html.twig', [
             'books' => $paginator->paginate(
                 $bookRepository->queryByGenreLike($request->get('genre')),
-                $request->get('page',1),
+                $request->get('page', 1),
                 10
-            )
+            ),
         ]);
     }
 
@@ -64,12 +62,12 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $book->setCreatedAt(new \DateTime("now"));
+            $book->setCreatedAt(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
 
-            $this->addFlash('success','book_created');
+            $this->addFlash('success', 'book_created');
 
             return $this->redirectToRoute('book_index');
         }
@@ -83,15 +81,14 @@ class BookController extends AbstractController
     /**
      * @Route("/{id}", name="book_show", methods={"GET"})
      */
-    public function show(Book $book, Request $request,CommentRepository $commentRepository,PaginatorInterface $paginator): Response
+    public function show(Book $book, Request $request, CommentRepository $commentRepository, PaginatorInterface $paginator): Response
     {
         return $this->render('book/show.html.twig', [
             'book' => $book,
             'comments' => $paginator->paginate(
-                $commentRepository->findBy(['bookId'=>$book->getId()]),
-                $request->get('page',1)
-                ,10
-            )
+                $commentRepository->findBy(['bookId' => $book->getId()]),
+                $request->get('page', 1), 10
+            ),
         ]);
     }
 
@@ -108,6 +105,7 @@ class BookController extends AbstractController
             $entityManager->persist($book);
             $entityManager->flush();
 
+            $this->addFlash('success', 'updated_successfully');
 
             return $this->redirectToRoute('book_index');
         }
@@ -123,7 +121,6 @@ class BookController extends AbstractController
      */
     public function delete(Request $request, Book $book): Response
     {
-
         $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
@@ -136,7 +133,8 @@ class BookController extends AbstractController
             $entityManager->remove($book);
             $entityManager->flush();
 
-            $this->addFlash('success','book_deleted');
+            $this->addFlash('success', 'book_deleted');
+
             return $this->redirectToRoute('book_index');
         }
 
@@ -146,4 +144,3 @@ class BookController extends AbstractController
         ]);
     }
 }
-

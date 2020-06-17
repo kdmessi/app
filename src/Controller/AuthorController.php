@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,14 @@ class AuthorController extends AbstractController
     /**
      * @Route("/", name="author_index", methods={"GET"})
      */
-    public function index(AuthorRepository $authorRepository): Response
+    public function index(AuthorRepository $authorRepository,PaginatorInterface $paginator,Request $request): Response
     {
         return $this->render('author/index.html.twig', [
-            'authors' => $authorRepository->findAll(),
+            'authors' => $paginator->paginate(
+                $authorRepository->findAll(),
+                $request->get('page',1),
+                10
+            )
         ]);
     }
 
@@ -40,6 +45,8 @@ class AuthorController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($author);
             $entityManager->flush();
+
+            $this->addFlash('success', 'created_successfully');
 
             return $this->redirectToRoute('author_index');
         }
@@ -71,6 +78,8 @@ class AuthorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'updated_successfully');
+
             return $this->redirectToRoute('author_index');
         }
 
@@ -100,6 +109,9 @@ class AuthorController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($author);
             $entityManager->flush();
+
+            $this->addFlash('success', 'deleted_successfully');
+
             return $this->redirectToRoute('author_index');
         }
 

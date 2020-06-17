@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Genre{% endblock %}
+{% block title %}{{"Genre"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Genre</h1>
+    <h1>{{"Genre"|trans}}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{"Id"|trans}}</th>
                 <td>{{ genre.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"Name"|trans}}</th>
                 <td>{{ genre.name }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('genre_index') }}">back to list</a>
+    <a href="{{ path('genre_index') }}">{{"back to list"|trans}}</a>
 
-    <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
+    <a href="{{ path('genre_edit', {'id': genre.id}) }}">{{"edit"|trans}}</a>
 
     <a href="{{ path('genre_delete',{'id': genre.id}) }}">{{"delete"|trans}}</a>
 {% endblock %}

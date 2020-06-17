@@ -33,7 +33,7 @@ class Comment
     /**
      * @ORM\Column(type="text")
      * @Assert\Regex(
-     *     pattern     = "/^[a-z\p{L}\s]+$/iu",
+     *     pattern     = "/^[a-z\p{L}\s\d]+$/iu",
      * )
      */
     private $content;
@@ -48,7 +48,7 @@ class Comment
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Regex(
-     *     pattern     = "/^[a-z\p{L}\s]+$/iu",
+     *     pattern     = "/^[a-z\p{L}\s\d]+$/iu",
      * )
      */
     private $nick;

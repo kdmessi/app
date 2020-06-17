@@ -1,19 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{  'Author_index'|trans}}{% endblock %}
+{% block title %}{{'Author_index'|trans}}{% endblock %}
 
 {% block body %}
     <h1>{{  'Author_index'|trans}}</h1>
-
+    <div class="nav text-center">
+        {{ knp_pagination_render(authors) }}
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>actions</th>
+                <th>{{'Id'|trans}}</th>
+                <th>{{"Name"|trans}}</th>
+                <th>{{"Surname"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
+
         <tbody>
         {% for author in authors %}
             <tr>
@@ -21,8 +24,8 @@
                 <td>{{ author.name }}</td>
                 <td>{{ author.surname }}</td>
                 <td>
-                    <a href="{{ path('author_show', {'id': author.id}) }}">show</a>
-                    <a href="{{ path('author_edit', {'id': author.id}) }}">edit</a>
+                    <a href="{{ path('author_show', {'id': author.id}) }}">{{"show"|trans}}</a>
+                    <a href="{{ path('author_edit', {'id': author.id}) }}">{{"edit"|trans}}</a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +35,8 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <div class="nav text-center">
+        {{ knp_pagination_render(authors) }}
+    </div>
     <a href="{{ path('author_new') }}">{{'Create_new'|trans}}</a>
 {% endblock %}

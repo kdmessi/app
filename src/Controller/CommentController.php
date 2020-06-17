@@ -44,6 +44,9 @@ class CommentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
+
+            $this->addFlash('success', 'created_successfully');
+
             return $this->redirectToRoute('book_show',['id'=>$book->getId()]);
         }
 
@@ -74,6 +77,8 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'updated_successfully');
+
             return $this->redirectToRoute('comment_index');
         }
 
@@ -99,6 +104,9 @@ class CommentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
+
+            $this->addFlash('success', 'deleted_successfully');
+
             return $this->redirectToRoute('book_show',['id'=>$comment->getBookId()]);
         }
 

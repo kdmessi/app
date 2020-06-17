@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book index{% endblock %}
+{% block title %}{{"Book index"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Book index</h1>
+    <h1>{{"Book index"|trans}}</h1>
     <form class="card card-sm" method="get">
         <div class="card-body row no-gutters align-items-center">
             <div class="col-auto">
@@ -13,7 +13,7 @@
                 <input class="form-control form-control-lg form-control-borderless" type="search" name="genre">
             </div>
             <div class="col-auto">
-                <button class="btn btn-lg btn-success" type="submit">Search</button>
+                <button class="btn btn-lg btn-success" type="submit">{{"Search"|trans}}</button>
             </div>
         </div>
     </form>
@@ -24,11 +24,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>CreatedAt</th>
-                <th>Description</th>
-                <th>actions</th>
+                <th>{{"Id"|trans}}</th>
+                <th>{{"Title"|trans}}</th>
+                <th>{{"CreatedAt"|trans}}</th>
+                <th>{{"Description"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -40,18 +40,18 @@
                 <td>{{ book.createdAt ? book.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ book.description }}</td>
                 <td>
-                    <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
-                    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                    <a href="{{ path('book_show', {'id': book.id}) }}">{{"show"|trans}}</a>
+                    <a href="{{ path('book_edit', {'id': book.id}) }}">{{"edit"|trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{{"no records foun"|trans}}d</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     {% if null != app.user %}
-    <a href="{{ path('book_new') }}">Create new</a>
+    <a href="{{ path('book_new') }}">{{"Create new"|trans}}</a>
     {% endif %}
 {% endblock %}

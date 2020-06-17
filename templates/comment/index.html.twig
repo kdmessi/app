@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Comment index{% endblock %}
+{% block title %}{{"Comment index"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Comment index</h1>
+    <h1>{{"Comment index"|trans}}</h1>
     <div class="nav text-center">
         {{ knp_pagination_render(comments) }}
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>Content</th>
-                <th>Email</th>
-                <th>Nick</th>
-                <th>actions</th>
+                <th>{{"Id"|trans}}</th>
+                <th>{{"CreatedAt"|trans}}</th>
+                <th>{{"Content"|trans}}</th>
+                <th>{{"Email"|trans}}</th>
+                <th>{{"Nick"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -27,13 +27,13 @@
                 <td>{{ comment.email }}</td>
                 <td>{{ comment.nick }}</td>
                 <td>
-                    <a href="{{ path('comment_show', {'id': comment.id}) }}">show</a>
-                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+                    <a href="{{ path('comment_show', {'id': comment.id}) }}">{{"show"|trans}}</a>
+                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">{{"edit"|trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">{{"no records found"|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>

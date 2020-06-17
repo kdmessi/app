@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Book{% endblock %}
+{% block title %}{{"Book"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Book</h1>
+    <h1>{{"Book"|trans}}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{"Id"|trans}}</th>
                 <td>{{ book.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"Title"|trans}}</th>
                 <td>{{ book.title }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
+                <th>{{"CreatedAt"|trans}}</th>
                 <td>{{ book.createdAt ? book.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{"Description"|trans}}</th>
                 <td>{{ book.description }}</td>
             </tr>
             <tr>
-                <th>Author</th>
+                <th>{{"Author"|trans}}</th>
                 <td>{{ book.author.name }} {{ book.author.surname }}</td>
             </tr>
             <tr>
 
-                <th>Genre</th>
+                <th>{{"Genre"|trans}}</th>
                 <td>
 
                     {% for genre in book.genres %}
@@ -41,14 +41,14 @@
         </tbody>
     </table>
 
-    <a href="{{ path('book_index') }}">back to list</a>
+    <a href="{{ path('book_index') }}">{{"back to list"|trans}}</a>
     {% if app.user %}
-    <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+    <a href="{{ path('book_edit', {'id': book.id}) }}">{{"edit"|trans}}</a>
 
     <a href="{{ path('book_delete',{'id': book.id}) }}">{{"delete"|trans}}</a>
     {% endif %}
 
-    <a href="{{ path('comment_new', {'id': book.id}) }}">create comment</a>
+    <a href="{{ path('comment_new', {'id': book.id}) }}">{{"create comment"|trans}}</a>
 
 
     {{  include('book/comment_index.html.twig') }}

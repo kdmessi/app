@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Genre index{% endblock %}
+{% block title %}{{"Genre index"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Genre index</h1>
+    <h1>{{"Genre index"|trans}}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>{{"Id"|trans}}</th>
+                <th>{{"Name"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +19,17 @@
                 <td>{{ genre.id }}</td>
                 <td>{{ genre.name }}</td>
                 <td>
-                    <a href="{{ path('genre_show', {'id': genre.id}) }}">show</a>
-                    <a href="{{ path('genre_edit', {'id': genre.id}) }}">edit</a>
+                    <a href="{{ path('genre_show', {'id': genre.id}) }}">{{"show"|trans}}</a>
+                    <a href="{{ path('genre_edit', {'id': genre.id}) }}">{{"edit"|trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{{"no records found"|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('genre_new') }}">Create new</a>
+    <a href="{{ path('genre_new') }}">{{"Create new"|trans}}</a>
 {% endblock %}

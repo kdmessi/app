@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Genre{% endblock %}
+{% block title %}{{"Edit Genre"|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Edit Genre</h1>
+    <h1>{{"Edit Genre"|trans}}</h1>
 
     {{ include('genre/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('genre_index') }}">back to list</a>
+    <a href="{{ path('genre_index') }}">{{"back to list"|trans}}</a>
 
     <a href="{{ path('genre_delete',{'id': genre.id}) }}">{{"delete"|trans}}</a>
 {% endblock %}
