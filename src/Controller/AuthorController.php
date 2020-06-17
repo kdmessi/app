@@ -20,20 +20,30 @@ class AuthorController extends AbstractController
 {
     /**
      * @Route("/", name="author_index", methods={"GET"})
+     *
+     * @param AuthorRepository   $authorRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     *
+     * @return Response
      */
-    public function index(AuthorRepository $authorRepository,PaginatorInterface $paginator,Request $request): Response
+    public function index(AuthorRepository $authorRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('author/index.html.twig', [
             'authors' => $paginator->paginate(
                 $authorRepository->findAll(),
-                $request->get('page',1),
+                $request->get('page', 1),
                 10
-            )
+            ),
         ]);
     }
 
     /**
      * @Route("/new", name="author_new", methods={"GET","POST"})
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -59,6 +69,10 @@ class AuthorController extends AbstractController
 
     /**
      * @Route("/{id}", name="author_show", methods={"GET"})
+     *
+     * @param Author $author
+     *
+     * @return Response
      */
     public function show(Author $author): Response
     {
@@ -69,6 +83,11 @@ class AuthorController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="author_edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param Author  $author
+     *
+     * @return Response
      */
     public function edit(Request $request, Author $author): Response
     {
@@ -88,12 +107,18 @@ class AuthorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/delete/{id}", name="author_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
+     *
+     * @param Request             $request
+     * @param Author              $author
+     * @param TranslatorInterface $translator
+     *
+     * @return Response
      */
     public function delete(Request $request, Author $author, TranslatorInterface $translator): Response
     {
-
         $form = $this->createForm(FormType::class, $author, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
@@ -103,8 +128,9 @@ class AuthorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$author->getBooks()->isEmpty()) {
-                $this->addFlash('danger',$translator->trans('You can not remove author with books'));
-                return $this->redirectToRoute('author_delete',['id'=>$author->getId()]);
+                $this->addFlash('danger', $translator->trans('You can not remove author with books'));
+
+                return $this->redirectToRoute('author_delete', ['id' => $author->getId()]);
             }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($author);

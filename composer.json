@@ -67,7 +67,7 @@
     "scripts": {
         "fix": [
             "./vendor/bin/php-cs-fixer fix -v --rules='{\"no_superfluous_phpdoc_tags\":false}' ./src",
-            "./vendor/bin/phpcbf --standard=/Users/krzysztofdarmon/PhpstormProjects/untitled2/app/vendor/escapestudios/symfony2-coding-standard/Symfony ./src/"
+            "./vendor/bin/phpcbf --standard=./vendor/escapestudios/symfony2-coding-standard/Symfony ./src"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",

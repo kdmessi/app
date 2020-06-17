@@ -1,8 +1,9 @@
-<?php
+<?php /** @noinspection MessDetectorValidationInspection */
 
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,6 +23,7 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Regex(
      *     pattern     = "/^[a-z\p{L}\s]+$/iu",
      * )
@@ -30,12 +32,14 @@ class Book
 
     /**
      * @ORM\Column(type="datetime")
+     *
      * @Assert\DateTime
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="text")
+     *
      * @Assert\Regex(
      *     pattern     = "/^[a-z\p{L}\s]+$/iu",
      * )
@@ -65,16 +69,27 @@ class Book
         $this->comments = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * @param string $title
+     *
+     * @return $this
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -82,23 +97,39 @@ class Book
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    /**
+     * @param DateTimeInterface $createdAt
+     *
+     * @return $this
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     *
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -106,11 +137,19 @@ class Book
         return $this;
     }
 
+    /**
+     * @return Author|null
+     */
     public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
+    /**
+     * @param Author|null $author
+     *
+     * @return $this
+     */
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
@@ -126,6 +165,11 @@ class Book
         return $this->genres;
     }
 
+    /**
+     * @param Genre $genre
+     *
+     * @return $this
+     */
     public function addGenre(Genre $genre): self
     {
         if (!$this->genres->contains($genre)) {
@@ -135,6 +179,11 @@ class Book
         return $this;
     }
 
+    /**
+     * @param Genre $genre
+     *
+     * @return $this
+     */
     public function removeGenre(Genre $genre): self
     {
         if ($this->genres->contains($genre)) {
@@ -152,6 +201,11 @@ class Book
         return $this->comments;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -162,6 +216,11 @@ class Book
         return $this;
     }
 
+    /**
+     * @param Comment $comment
+     *
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {

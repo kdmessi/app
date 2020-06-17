@@ -14,6 +14,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GenreRepository extends ServiceEntityRepository
 {
+    /**
+     * GenreRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Genre::class);

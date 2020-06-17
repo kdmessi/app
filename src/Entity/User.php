@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection MessDetectorValidationInspection */
+
 /**
  * User entity.
  */
@@ -16,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     name="users"
  *
  * )
- *
- *
  */
 class User implements UserInterface
 {
@@ -62,7 +61,6 @@ class User implements UserInterface
      *     unique=true,
      * )
      * @Assert\Email()
-     *
      */
     private $email;
 
@@ -78,13 +76,13 @@ class User implements UserInterface
      *
      * @var string
      *
-     *
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
      * @var string
+     *
      * @SecurityAssert\UserPassword(
      *  message = "Wrong value for your current password"
      * )
@@ -93,6 +91,7 @@ class User implements UserInterface
 
     /**
      * Getter for the Id.
+     *
      * @return int|null Result
      */
     public function getId(): ?int
@@ -200,16 +199,16 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getConfirm():string
+    public function getConfirm(): string
     {
         return $this->confirm ?? '';
     }
 
     /**
-     * @return string
+     * @param string $confirm
      */
-    public function setConfirm(string $confirm ):void
+    public function setConfirm(string $confirm): void
     {
-       $this->confirm=$confirm;
+        $this->confirm = $confirm;
     }
 }

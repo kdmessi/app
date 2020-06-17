@@ -3,10 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Book;
-use App\Entity\Genre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,37 +15,32 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BookRepository extends ServiceEntityRepository
 {
+    /**
+     * BookRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Book::class);
     }
 
-
+    /**
+     * @param string|null $genre
+     *
+     * @return Query
+     */
     public function queryByGenreLike(?string $genre): Query
     {
-        if (null === $genre)
-        {
+        if (null === $genre) {
             return $this->createQueryBuilder('b')
                 ->getQuery();
         }
+
         return $this->createQueryBuilder('b')
-            ->join('b.genres','g')
+            ->join('b.genres', 'g')
             ->andWhere('g.name LIKE :val')
-            ->setParameter('val', '%' . $genre . '%')
+            ->setParameter('val', '%'.$genre.'%')
             ->getQuery()
         ;
     }
-
-
-    /*
-    public function findOneBySomeField($value): ?Book
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -6,6 +6,8 @@ use App\Entity\Book;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use DateTime;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -20,6 +22,12 @@ class CommentController extends AbstractController
 {
     /**
      * @Route("/", name="comment_index", methods={"GET"})
+     *
+     * @param CommentRepository  $commentRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     *
+     * @return Response
      */
     public function index(CommentRepository $commentRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -30,6 +38,13 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/new/{id}", name="comment_new", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
+     *
+     * @param Request $request
+     * @param Book    $book
+     *
+     * @return Response
+     *
+     * @throws Exception
      */
     public function new(Request $request, Book $book): Response
     {
@@ -39,7 +54,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCreatedAt(new \DateTime('now'));
+            $comment->setCreatedAt(new DateTime('now'));
             $comment->setBook($book);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment);
@@ -47,7 +62,7 @@ class CommentController extends AbstractController
 
             $this->addFlash('success', 'created_successfully');
 
-            return $this->redirectToRoute('book_show',['id'=>$book->getId()]);
+            return $this->redirectToRoute('book_show', ['id' => $book->getId()]);
         }
 
         return $this->render('comment/new.html.twig', [
@@ -58,6 +73,10 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/{id}", name="comment_show", methods={"GET"},requirements={"id": "[1-9]\d*"})
+     *
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function show(Comment $comment): Response
     {
@@ -68,6 +87,11 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
+     *
+     * @param Request $request
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function edit(Request $request, Comment $comment): Response
     {
@@ -90,6 +114,11 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="comment_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
+     *
+     * @param Request $request
+     * @param Comment $comment
+     *
+     * @return Response
      */
     public function delete(Request $request, Comment $comment): Response
     {
@@ -107,7 +136,7 @@ class CommentController extends AbstractController
 
             $this->addFlash('success', 'deleted_successfully');
 
-            return $this->redirectToRoute('book_show',['id'=>$comment->getBookId()]);
+            return $this->redirectToRoute('book_show', ['id' => $comment->getBookId()]);
         }
 
         return $this->render('comment/delete.html.twig', [

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @license MIT
+ */
 namespace App\Controller;
 
 use App\Entity\User;
@@ -12,10 +14,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * Class AdminController
+ * @package App\Controller
+ */
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="admin")
+     *
+     * @param Request                      $request
+     * @param Security                     $security
+     * @param UserPasswordEncoderInterface $encoder
+     * @param UserRepository               $userRepository
+     *
+     * @return Response
      */
     public function index(Request $request, Security $security, UserPasswordEncoderInterface $encoder, UserRepository $userRepository): Response
     {

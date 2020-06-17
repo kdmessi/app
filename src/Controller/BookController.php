@@ -6,6 +6,8 @@ use App\Entity\Book;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use App\Repository\CommentRepository;
+use DateTime;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,6 +24,12 @@ class BookController extends AbstractController
 {
     /**
      * @Route("/", name="book_index", methods={"GET"})
+     *
+     * @param BookRepository     $bookRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     *
+     * @return Response
      */
     public function index(BookRepository $bookRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -54,6 +62,12 @@ class BookController extends AbstractController
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws Exception
      */
     public function new(Request $request): Response
     {
@@ -62,7 +76,7 @@ class BookController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $book->setCreatedAt(new \DateTime('now'));
+            $book->setCreatedAt(new DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($book);
             $entityManager->flush();
@@ -80,6 +94,13 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}", name="book_show", methods={"GET"})
+     *
+     * @param Book               $book
+     * @param Request            $request
+     * @param CommentRepository  $commentRepository
+     * @param PaginatorInterface $paginator
+     *
+     * @return Response
      */
     public function show(Book $book, Request $request, CommentRepository $commentRepository, PaginatorInterface $paginator): Response
     {
@@ -87,13 +108,19 @@ class BookController extends AbstractController
             'book' => $book,
             'comments' => $paginator->paginate(
                 $commentRepository->findBy(['bookId' => $book->getId()]),
-                $request->get('page', 1), 10
+                $request->get('page', 1),
+                10
             ),
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
+     *
+     * @param Request $request
+     * @param Book    $book
+     *
+     * @return Response
      */
     public function edit(Request $request, Book $book): Response
     {
@@ -118,6 +145,11 @@ class BookController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="book_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
+     *
+     * @param Request $request
+     * @param Book    $book
+     *
+     * @return Response
      */
     public function delete(Request $request, Book $book): Response
     {

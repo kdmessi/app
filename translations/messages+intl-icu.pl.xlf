@@ -7,7 +7,7 @@
     <body>
       <trans-unit id="p.4pRmM" resname="You can not remove author with books">
         <source>You can not remove author with books</source>
-        <target>__You can not remove author with books</target>
+        <target>Nie możesz usunąć autora który ma przypisaną książkę</target>
       </trans-unit>
       <trans-unit id="4tClSWj" resname="Delete">
         <source>Delete</source>
@@ -15,67 +15,247 @@
       </trans-unit>
       <trans-unit id="DTHe6IT" resname="action_delete">
         <source>action_delete</source>
-        <target>__action_delete</target>
+        <target>Usuń</target>
       </trans-unit>
       <trans-unit id="lMTKD8f" resname="Edit_Author">
         <source>Edit_Author</source>
-        <target>__Edit_Author</target>
+        <target>Edytuj autora</target>
       </trans-unit>
       <trans-unit id="6tlp1bV" resname="back_to_list">
         <source>back_to_list</source>
-        <target>__back_to_list</target>
+        <target>Powrót do listy</target>
       </trans-unit>
       <trans-unit id="YZdZVQP" resname="delete">
         <source>delete</source>
-        <target>__delete</target>
+        <target>Usuń</target>
       </trans-unit>
       <trans-unit id="JvLhJqQ" resname="Author_index">
         <source>Author_index</source>
-        <target>__Author_index</target>
+        <target>Autorzy</target>
       </trans-unit>
       <trans-unit id="oQmcLRD" resname="no_records_found">
         <source>no_records_found</source>
-        <target>__no_records_found</target>
+        <target>Brak rekordów</target>
       </trans-unit>
       <trans-unit id="LMeH1qf" resname="Create_new">
         <source>Create_new</source>
-        <target>__Create_new</target>
+        <target>Stwórz</target>
       </trans-unit>
       <trans-unit id="FQn1YfJ" resname="Save">
         <source>Save</source>
-        <target>__Save</target>
+        <target>Zapisz</target>
       </trans-unit>
       <trans-unit id="rOBOHiy" resname="action_save">
         <source>action_save</source>
-        <target>__action_save</target>
+        <target>Zapisz</target>
       </trans-unit>
       <trans-unit id="XL6Mb3T" resname="action_back_to_list">
         <source>action_back_to_list</source>
-        <target>__action_back_to_list</target>
+        <target>Powrót do listy</target>
       </trans-unit>
       <trans-unit id="OnhpU4i" resname="Home">
         <source>Home</source>
-        <target>__Home</target>
+        <target>Strona domowa</target>
       </trans-unit>
       <trans-unit id="NWGr.oB" resname="Genres">
         <source>Genres</source>
-        <target>__Genres</target>
+        <target>Rodzaje</target>
       </trans-unit>
       <trans-unit id="LADJqqc" resname="Authors">
         <source>Authors</source>
-        <target>__Authors</target>
+        <target>Autorzy</target>
       </trans-unit>
       <trans-unit id="NV958p1" resname="Comments">
         <source>Comments</source>
-        <target>__Comments</target>
+        <target>Komentarze</target>
       </trans-unit>
       <trans-unit id="nWMiwfT" resname="Login">
         <source>Login</source>
-        <target>__Login</target>
+        <target>Zaloguj</target>
       </trans-unit>
       <trans-unit id="0FJ_Sz1" resname="Logout">
         <source>Logout</source>
-        <target>__Logout</target>
+        <target>Wyloguj</target>
+      </trans-unit>
+      <trans-unit id="zI.Z63_" resname="Welcome!">
+        <source>Welcome!</source>
+        <target>Witaj!</target>
+      </trans-unit>
+      <trans-unit id="yKeA0.P" resname="Log in!">
+        <source>Log in!</source>
+        <target>Zaloguj!</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>__You are logged in as</target>
+      </trans-unit>
+      <trans-unit id="dDUw20Q" resname="Please sign in">
+        <source>Please sign in</source>
+        <target>__Please sign in</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>__Email</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>__Password</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>__Sign in</target>
+      </trans-unit>
+      <trans-unit id="kVLZnJQ" resname="Edit Comment">
+        <source>Edit Comment</source>
+        <target>__Edit Comment</target>
+      </trans-unit>
+      <trans-unit id="U0M9PNE" resname="back to list">
+        <source>back to list</source>
+        <target>__back to list</target>
+      </trans-unit>
+      <trans-unit id="0kT6ve_" resname="New Comment">
+        <source>New Comment</source>
+        <target>__New Comment</target>
+      </trans-unit>
+      <trans-unit id="RHwZ1XY" resname="Create new Comment">
+        <source>Create new Comment</source>
+        <target>__Create new Comment</target>
+      </trans-unit>
+      <trans-unit id="EPbioXM" resname="back to lis">
+        <source>back to lis</source>
+        <target>__back to lis</target>
+      </trans-unit>
+      <trans-unit id="X.Q50pl" resname="Comment index">
+        <source>Comment index</source>
+        <target>__Comment index</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>__Id</target>
+      </trans-unit>
+      <trans-unit id="_NU_9fk" resname="CreatedAt">
+        <source>CreatedAt</source>
+        <target>__CreatedAt</target>
+      </trans-unit>
+      <trans-unit id="R70pB1_" resname="Content">
+        <source>Content</source>
+        <target>__Content</target>
+      </trans-unit>
+      <trans-unit id="10OcTTm" resname="Nick">
+        <source>Nick</source>
+        <target>__Nick</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>__actions</target>
+      </trans-unit>
+      <trans-unit id="HGMzUJ3" resname="show">
+        <source>show</source>
+        <target>__show</target>
+      </trans-unit>
+      <trans-unit id="JiEhxTc" resname="edit">
+        <source>edit</source>
+        <target>__edit</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>__no records found</target>
+      </trans-unit>
+      <trans-unit id="RPXj__x" resname="Comment">
+        <source>Comment</source>
+        <target>__Comment</target>
+      </trans-unit>
+      <trans-unit id=".8P7z44" resname="New Author">
+        <source>New Author</source>
+        <target>__New Author</target>
+      </trans-unit>
+      <trans-unit id="n7TwvNy" resname="Create new Author">
+        <source>Create new Author</source>
+        <target>__Create new Author</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>__Name</target>
+      </trans-unit>
+      <trans-unit id="92LaBfT" resname="Surname">
+        <source>Surname</source>
+        <target>__Surname</target>
+      </trans-unit>
+      <trans-unit id="2VCCou5" resname="Author">
+        <source>Author</source>
+        <target>__Author</target>
+      </trans-unit>
+      <trans-unit id="Dd6pXpA" resname="Admin_settings">
+        <source>Admin_settings</source>
+        <target>__Admin_settings</target>
+      </trans-unit>
+      <trans-unit id=".elJC94" resname="Edit Genre">
+        <source>Edit Genre</source>
+        <target>__Edit Genre</target>
+      </trans-unit>
+      <trans-unit id="4J7pNRO" resname="New Genre">
+        <source>New Genre</source>
+        <target>__New Genre</target>
+      </trans-unit>
+      <trans-unit id="8kI8Equ" resname="Create new Genre">
+        <source>Create new Genre</source>
+        <target>__Create new Genre</target>
+      </trans-unit>
+      <trans-unit id="BeFiGXi" resname="Genre index">
+        <source>Genre index</source>
+        <target>__Genre index</target>
+      </trans-unit>
+      <trans-unit id="nz33U6Q" resname="Create new">
+        <source>Create new</source>
+        <target>__Create new</target>
+      </trans-unit>
+      <trans-unit id="baeVqGZ" resname="Genre">
+        <source>Genre</source>
+        <target>__Genre</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>__Edit</target>
+      </trans-unit>
+      <trans-unit id="BmYkdIW" resname="Edit Book">
+        <source>Edit Book</source>
+        <target>__Edit Book</target>
+      </trans-unit>
+      <trans-unit id="V9PqUCm" resname="New Book">
+        <source>New Book</source>
+        <target>__New Book</target>
+      </trans-unit>
+      <trans-unit id="DNMJOm_" resname="Create new Book">
+        <source>Create new Book</source>
+        <target>__Create new Book</target>
+      </trans-unit>
+      <trans-unit id="6dHGOjY" resname="Book index">
+        <source>Book index</source>
+        <target>__Book index</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>__Search</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>__Title</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>__Description</target>
+      </trans-unit>
+      <trans-unit id="6M2xL6G" resname="no records foun">
+        <source>no records foun</source>
+        <target>__no records foun</target>
+      </trans-unit>
+      <trans-unit id="kJy4ESf" resname="Book">
+        <source>Book</source>
+        <target>__Book</target>
+      </trans-unit>
+      <trans-unit id="fCQO2Ki" resname="create comment">
+        <source>create comment</source>
+        <target>__create comment</target>
       </trans-unit>
     </body>
   </file>

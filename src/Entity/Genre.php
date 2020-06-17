@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection MessDetectorValidationInspection */
 
 namespace App\Entity;
 
@@ -22,6 +22,7 @@ class Genre
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      * @Assert\Regex(
      *     pattern     = "/^[a-z\p{L}\s]+$/iu",
      * )
@@ -39,17 +40,27 @@ class Genre
     }
 
 
-
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -65,6 +76,11 @@ class Genre
         return $this->books;
     }
 
+    /**
+     * @param Book $book
+     *
+     * @return $this
+     */
     public function addBook(Book $book): self
     {
         if (!$this->books->contains($book)) {
@@ -75,6 +91,11 @@ class Genre
         return $this;
     }
 
+    /**
+     * @param Book $book
+     *
+     * @return $this
+     */
     public function removeBook(Book $book): self
     {
         if ($this->books->contains($book)) {

@@ -16,14 +16,14 @@ abstract class AbstractBaseFixtures extends Fixture
     /**
      * Persistence object manager.
      *
-     * @var \Doctrine\Persistence\ObjectManager
+     * @var ObjectManager
      */
     protected $manager;
 
     /**
      * Load.
      *
-     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
+     * @param ObjectManager $manager Persistence object manager
      */
     public function load(ObjectManager $manager): void
     {
@@ -34,7 +34,7 @@ abstract class AbstractBaseFixtures extends Fixture
     /**
      * Load data.
      *
-     * @param \Doctrine\Persistence\ObjectManager $manager Persistence object manager
+     * @param ObjectManager $manager Persistence object manager
      */
     abstract protected function loadData(ObjectManager $manager): void;
 }
