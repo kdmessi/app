@@ -257,6 +257,66 @@
         <source>create comment</source>
         <target>Stwórz komentarz</target>
       </trans-unit>
+      <trans-unit id="fCqO2Ki" resname="You can not remove author with books">
+         <source>You can not remove author with books</source>
+         <target>Nie możesz usunąć autora który ma przypisaną książkę</target>
+       </trans-unit>
+      <trans-unit id="fCqO21i" resname="book_created">
+         <source>book_created</source>
+         <target>Książka stworzona</target>
+        </trans-unit>
+      <trans-unit id="fCqO28i" resname="created_successfully">
+         <source>created_successfully</source>
+         <target>Utworzono pomyślnie</target>
+        </trans-unit>
+      <trans-unit id="fCqO53i" resname="deleted_successfully">
+         <source>deleted_successfully</source>
+         <target>Usunięto pomyślnie</target>
+        </trans-unit>
+      <trans-unit id="fCqO27i" resname="genre_created">
+         <source>genre_created</source>
+         <target>Rodzaj stworzony</target>
+        </trans-unit>
+      <trans-unit id="fCqO26i" resname="invalid data">
+         <source>invalid data</source>
+         <target>Nieprawidłowe dane</target>
+        </trans-unit>
+      <trans-unit id="fCqO25i" resname="invalid_confirm_password">
+         <source>invalid_confirm_password</source>
+         <target>Hasło nieprawidłowe</target>
+        </trans-unit>
+      <trans-unit id="fCqO24i" resname="updated_successfully">
+         <source>updated_successfully</source>
+         <target>Edytowano pomyślnie</target>
+        </trans-unit>
+      <trans-unit id="fCqO84i" resname="book_deleted">
+         <source>book_deleted</source>
+         <target>Usunięto pomyślnie</target>
+        </trans-unit>
+      <trans-unit id="fCqO94i" resname="Confirm">
+         <source>Confirm</source>
+         <target>Stare hasło</target>
+          </trans-unit>
+      <trans-unit id="fCqO82i" resname="book_delete">
+         <source>book_delete</source>
+         <target>Usuń książkę</target>
+          </trans-unit>
+      <trans-unit id="fCqO32i" resname="author_delete">
+         <source>author_delete</source>
+         <target>Usuń autora</target>
+          </trans-unit>
+      <trans-unit id="fCqO12i" resname="genre_delete">
+         <source>genre_delete</source>
+         <target>Usuń rodzaj</target>
+          </trans-unit>
+      <trans-unit id="fCq1821" resname="comment_delete">
+         <source>comment_delete</source>
+         <target>Usuń komentarz</target>
+          </trans-unit>
+      <trans-unit id="fCq1921" resname="Update">
+         <source>Update</source>
+         <target>Zaktualizuj</target>
+          </trans-unit>
     </body>
   </file>
 </xliff>
