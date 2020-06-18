@@ -317,6 +317,10 @@
          <source>Update</source>
          <target>Zaktualizuj</target>
           </trans-unit>
+      <trans-unit id="fCq1121" resname="Email could not be found.">
+         <source>Email could not be found.</source>
+         <target>Email nie znaleziony</target>
+          </trans-unit>
     </body>
   </file>
 </xliff>
