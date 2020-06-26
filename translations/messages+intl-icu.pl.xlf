@@ -321,6 +321,10 @@
          <source>Email could not be found.</source>
          <target>Email nie znaleziony</target>
           </trans-unit>
+      <trans-unit id="feq1421" resname="error_message">
+         <source>error_message</source>
+         <target>Jedno z wpisanych danych jest niepoprawne.</target>
+          </trans-unit>
     </body>
   </file>
 </xliff>
