@@ -23,9 +23,9 @@ class AdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', TextType::class)
-            ->add('confirm', PasswordType::class)
+            ->add('email', EmailType::class, ['required' => true])
+            ->add('password', TextType::class, ['required' => true])
+            ->add('confirm', PasswordType::class, ['required' => true])
         ;
     }
 

@@ -22,4 +22,34 @@ class GenreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Genre::class);
     }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Genre $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Genre $entity):void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Genre $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Genre $entity):void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+    }
 }

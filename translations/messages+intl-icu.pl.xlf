@@ -5,10 +5,6 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="p.4pRmM" resname="You can not remove author with books">
-        <source>You can not remove author with books</source>
-        <target>Nie możesz usunąć autora który ma przypisaną książkę</target>
-      </trans-unit>
       <trans-unit id="4tClSWj" resname="Delete">
         <source>Delete</source>
         <target>Usuń</target>
@@ -257,8 +253,8 @@
         <source>create comment</source>
         <target>Stwórz komentarz</target>
       </trans-unit>
-      <trans-unit id="fCqO2Ki" resname="You can not remove author with books">
-         <source>You can not remove author with books</source>
+      <trans-unit id="fCqO2Ki" resname="cant_remove_author_with_books">
+         <source>cant_remove_author_with_books</source>
          <target>Nie możesz usunąć autora który ma przypisaną książkę</target>
        </trans-unit>
       <trans-unit id="fCqO21i" resname="book_created">
@@ -324,6 +320,10 @@
       <trans-unit id="feq1421" resname="error_message">
          <source>error_message</source>
          <target>Jedno z wpisanych danych jest niepoprawne.</target>
+          </trans-unit>
+      <trans-unit id="feq8321" resname="genre">
+         <source>genre</source>
+         <target>Rodzaj</target>
           </trans-unit>
     </body>
   </file>

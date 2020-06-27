@@ -40,21 +40,23 @@ class GenreController extends AbstractController
     /**
      * @Route("/new", name="genre_new", methods={"GET","POST"})
      *
-     * @param Request $request
+     * @param Request         $request
+     *
+     * @param GenreRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function new(Request $request): Response
+    public function new(Request $request, GenreRepository $repository): Response
     {
         $genre = new Genre();
         $form = $this->createForm(GenreType::class, $genre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($genre);
-            $entityManager->flush();
-
+            $repository->save($genre);
             $this->addFlash('success', 'genre_created');
 
             return $this->redirectToRoute('genre_index');
@@ -83,18 +85,23 @@ class GenreController extends AbstractController
     /**
      * @Route("/{id}/edit", name="genre_edit", methods={"GET","POST"})
      *
-     * @param Request $request
-     * @param Genre   $genre
+     * @param Request         $request
+     * @param Genre           $genre
+     *
+     * @param GenreRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function edit(Request $request, Genre $genre): Response
+    public function edit(Request $request, Genre $genre, GenreRepository $repository): Response
     {
         $form = $this->createForm(GenreType::class, $genre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $repository->save($genre);
 
             $this->addFlash('success', 'updated_successfully');
 
@@ -110,12 +117,17 @@ class GenreController extends AbstractController
     /**
      * @Route("/delete/{id}", name="genre_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      *
-     * @param Request $request
-     * @param Genre   $genre
+     * @param Request         $request
+     * @param Genre           $genre
+     *
+     * @param GenreRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Request $request, Genre $genre): Response
+    public function delete(Request $request, Genre $genre, GenreRepository $repository): Response
     {
         $form = $this->createForm(FormType::class, $genre, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -125,9 +137,7 @@ class GenreController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($genre);
-            $entityManager->flush();
+            $repository->remove($genre);
 
             $this->addFlash('success', 'deleted_successfully');
 

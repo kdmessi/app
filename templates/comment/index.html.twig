@@ -22,7 +22,7 @@
         {% for comment in comments %}
             <tr>
                 <td>{{ comment.id }}</td>
-                <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ comment.createdAt ? comment.createdAt|date('Y/m/d'): '' }}</td>
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.email }}</td>
                 <td>{{ comment.nick }}</td>

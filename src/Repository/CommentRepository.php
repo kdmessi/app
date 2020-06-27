@@ -22,4 +22,34 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Comment $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Comment $entity):void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Comment $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Comment $entity):void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+    }
 }

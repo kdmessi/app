@@ -33,6 +33,7 @@ class BookRepository extends ServiceEntityRepository
     {
         if (null === $genre) {
             return $this->createQueryBuilder('b')
+                ->addSelect('b.created_at')
                 ->getQuery();
         }
 
@@ -42,5 +43,35 @@ class BookRepository extends ServiceEntityRepository
             ->setParameter('val', '%'.$genre.'%')
             ->getQuery()
         ;
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Book $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Book $entity):void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param Book $entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Book $entity):void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
     }
 }

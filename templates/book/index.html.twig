@@ -20,7 +20,7 @@
     <div class="nav text-center">
         {{ knp_pagination_render(books) }}
     </div>
-
+    {{ knp_pagination_sortable(books, 'Created At', 'b.createdAt') }}
     <table class="table">
         <thead>
             <tr>
@@ -37,11 +37,11 @@
             <tr>
                 <td>{{ book.id }}</td>
                 <td>{{ book.title }}</td>
-                <td>{{ book.createdAt ? book.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ book.createdAt ? book.createdAt|date('Y/m/d') : '' }}</td>
                 <td>{{ book.description }}</td>
                 <td>
                     <a href="{{ path('book_show', {'id': book.id}) }}">{{"show"|trans}}</a>
-                    {% if null != app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('book_edit', {'id': book.id}) }}">{{"edit"|trans}}</a>
                     {% endif %}
                 </td>
@@ -53,7 +53,7 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if null != app.user %}
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('book_new') }}">{{"Create new"|trans}}</a>
     {% endif %}
 {% endblock %}

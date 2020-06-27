@@ -39,14 +39,17 @@ class CommentController extends AbstractController
     /**
      * @Route("/new/{id}", name="comment_new", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
      *
-     * @param Request $request
-     * @param Book    $book
+     * @param Request           $request
+     * @param Book              $book
+     *
+     * @param CommentRepository $repository
      *
      * @return Response
      *
-     * @throws Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function new(Request $request, Book $book): Response
+    public function new(Request $request, Book $book, CommentRepository $repository): Response
     {
         $comment = new Comment();
 
@@ -56,9 +59,7 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new DateTime('now'));
             $comment->setBook($book);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            $repository->save($comment);
 
             $this->addFlash('success', 'created_successfully');
 
@@ -88,18 +89,23 @@ class CommentController extends AbstractController
     /**
      * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"},requirements={"id": "[1-9]\d*"})
      *
-     * @param Request $request
-     * @param Comment $comment
+     * @param Request           $request
+     * @param Comment           $comment
+     *
+     * @param CommentRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function edit(Request $request, Comment $comment): Response
+    public function edit(Request $request, Comment $comment, CommentRepository $repository): Response
     {
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $repository->save($comment);
 
             $this->addFlash('success', 'updated_successfully');
 
@@ -115,12 +121,17 @@ class CommentController extends AbstractController
     /**
      * @Route("/{id}/delete", name="comment_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      *
-     * @param Request $request
-     * @param Comment $comment
+     * @param Request           $request
+     * @param Comment           $comment
+     *
+     * @param CommentRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Request $request, Comment $comment): Response
+    public function delete(Request $request, Comment $comment, CommentRepository $repository): Response
     {
         $form = $this->createForm(FormType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -130,9 +141,7 @@ class CommentController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($comment);
-            $entityManager->flush();
+            $repository->remove($comment);
 
             $this->addFlash('success', 'deleted_successfully');
 

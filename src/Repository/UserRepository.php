@@ -46,4 +46,34 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param User $entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function remove(User $entity):void
+    {
+        $this->_em->remove($entity);
+        $this->_em->flush();
+    }
+
+    /** @noinspection PhpUnhandledExceptionInspection
+     * @noinspection PhpUnhandledExceptionInspection
+     */
+    /**
+     * @param User $entity
+     *
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function save(User $entity):void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
+    }
 }

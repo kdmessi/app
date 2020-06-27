@@ -43,9 +43,7 @@ class AdminController extends AbstractController
                 $dbUser = $userRepository->findAll()[0];
                 $dbUser->setPassword($encoder->encodePassword($dbUser, $user->getPassword()));
                 $dbUser->setEmail($user->getEmail());
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($dbUser);
-                $entityManager->flush();
+                $userRepository->save($dbUser);
 
                 $this->addFlash('success', 'updated_successfully');
 

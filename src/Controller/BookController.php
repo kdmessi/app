@@ -33,9 +33,9 @@ class BookController extends AbstractController
      */
     public function index(BookRepository $bookRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $term = $request->get('genre');
+        $genre = $request->query->getAlnum('genre');
         $validator = Validation::createValidator();
-        $violations = $validator->validate($term, [
+        $violations = $validator->validate($genre, [
             new Length(['max' => 10]),
         ]);
 
@@ -53,7 +53,7 @@ class BookController extends AbstractController
 
         return $this->render('book/index.html.twig', [
             'books' => $paginator->paginate(
-                $bookRepository->queryByGenreLike($request->get('genre')),
+                $bookRepository->queryByGenreLike($genre),
                 $request->get('page', 1),
                 10
             ),
@@ -63,13 +63,16 @@ class BookController extends AbstractController
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
      *
-     * @param Request $request
+     * @param Request        $request
+     *
+     * @param BookRepository $repository
      *
      * @return Response
      *
-     * @throws Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function new(Request $request): Response
+    public function new(Request $request, BookRepository $repository): Response
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
@@ -77,9 +80,7 @@ class BookController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $book->setCreatedAt(new DateTime('now'));
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($book);
-            $entityManager->flush();
+            $repository->save($book);
 
             $this->addFlash('success', 'book_created');
 
@@ -117,20 +118,23 @@ class BookController extends AbstractController
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
      *
-     * @param Request $request
-     * @param Book    $book
+     * @param Request        $request
+     * @param Book           $book
+     *
+     * @param BookRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function edit(Request $request, Book $book): Response
+    public function edit(Request $request, Book $book, BookRepository $repository): Response
     {
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($book);
-            $entityManager->flush();
+            $repository->save($book);
 
             $this->addFlash('success', 'updated_successfully');
 
@@ -146,12 +150,17 @@ class BookController extends AbstractController
     /**
      * @Route("/delete/{id}", name="book_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      *
-     * @param Request $request
-     * @param Book    $book
+     * @param Request        $request
+     * @param Book           $book
+     *
+     * @param BookRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Request $request, Book $book): Response
+    public function delete(Request $request, Book $book, BookRepository $repository): Response
     {
         $form = $this->createForm(FormType::class, $book, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -161,9 +170,7 @@ class BookController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($book);
-            $entityManager->flush();
+            $repository->remove($book);
 
             $this->addFlash('success', 'book_deleted');
 

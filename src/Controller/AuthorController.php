@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/author")
@@ -41,20 +40,23 @@ class AuthorController extends AbstractController
     /**
      * @Route("/new", name="author_new", methods={"GET","POST"})
      *
-     * @param Request $request
+     * @param Request          $request
+     *
+     * @param AuthorRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function new(Request $request): Response
+    public function new(Request $request, AuthorRepository $repository): Response
     {
         $author = new Author();
         $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($author);
-            $entityManager->flush();
+            $repository->save($author);
 
             $this->addFlash('success', 'created_successfully');
 
@@ -84,18 +86,23 @@ class AuthorController extends AbstractController
     /**
      * @Route("/{id}/edit", name="author_edit", methods={"GET","POST"})
      *
-     * @param Request $request
-     * @param Author  $author
+     * @param Request          $request
+     * @param Author           $author
+     *
+     * @param AuthorRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function edit(Request $request, Author $author): Response
+    public function edit(Request $request, Author $author, AuthorRepository $repository): Response
     {
         $form = $this->createForm(AuthorType::class, $author);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $repository->save($author);
 
             $this->addFlash('success', 'updated_successfully');
 
@@ -111,13 +118,18 @@ class AuthorController extends AbstractController
     /**
      * @Route("/delete/{id}", name="author_delete", methods={"DELETE","GET"}, requirements={"id": "[1-9]\d*"})
      *
-     * @param Request             $request
-     * @param Author              $author
-     * @param TranslatorInterface $translator
+     * @param Request          $request
+     * @param Author           $author
+     *
+     *
+     * @param AuthorRepository $repository
      *
      * @return Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Request $request, Author $author, TranslatorInterface $translator): Response
+    public function delete(Request $request, Author $author, AuthorRepository $repository): Response
     {
         $form = $this->createForm(FormType::class, $author, ['method' => 'DELETE']);
         $form->handleRequest($request);
@@ -128,13 +140,11 @@ class AuthorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$author->getBooks()->isEmpty()) {
-                $this->addFlash('danger', $translator->trans('You can not remove author with books'));
+                $this->addFlash('danger', 'cant_remove_author_with_books');
 
                 return $this->redirectToRoute('author_delete', ['id' => $author->getId()]);
             }
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($author);
-            $entityManager->flush();
+            $repository->remove($author);
 
             $this->addFlash('success', 'deleted_successfully');
 
